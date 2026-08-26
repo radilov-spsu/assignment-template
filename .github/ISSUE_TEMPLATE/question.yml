@@ -2,10 +2,19 @@ name: Вопрос преподавателю
 description: Спросить по текущей работе
 labels: ["вопрос"]
 body:
+  - type: dropdown
+    id: course
+    attributes:
+      label: Курс
+      options:
+        - Объектно-ориентированный анализ и проектирование
+        - Технологии параллельного программирования
+    validations:
+      required: true
   - type: input
     id: lab
     attributes:
-      label: К какой работе относится вопрос
+      label: Работа
       placeholder: lab-01
     validations:
       required: true
