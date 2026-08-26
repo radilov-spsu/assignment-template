@@ -1,0 +1,32 @@
+# Сборка
+bin/
+obj/
+build/
+dist/
+target/
+*.o
+*.exe
+*.dll
+*.class
+
+# Зависимости
+node_modules/
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# IDE
+.idea/
+.vs/
+.vscode/
+*.user
+
+# ОС
+.DS_Store
+Thumbs.db
+
+# Секреты
+.env
+*.pem
+*.key

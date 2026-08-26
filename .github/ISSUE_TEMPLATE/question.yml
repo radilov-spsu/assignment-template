@@ -1,0 +1,18 @@
+name: Вопрос преподавателю
+description: Спросить по текущей работе
+labels: ["вопрос"]
+body:
+  - type: input
+    id: lab
+    attributes:
+      label: К какой работе относится вопрос
+      placeholder: lab-01
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Вопрос
+      description: Что не получается, что уже пробовали, текст ошибки
+    validations:
+      required: true
