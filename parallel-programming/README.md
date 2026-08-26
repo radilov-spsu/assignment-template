@@ -8,7 +8,7 @@
 
 Условия работ — в репозитории
 [`materials`](https://github.com/radilov-spsu/materials), папка
-`labs/parallel-programming/`.
+`parallel-programming/labs/`.
 
 ## Что ожидается в сдаче
 

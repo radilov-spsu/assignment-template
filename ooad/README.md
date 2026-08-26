@@ -7,7 +7,7 @@
 | [`lab-01`](lab-01/) | | |
 
 Условия работ — в репозитории
-[`materials`](https://github.com/radilov-spsu/materials), папка `labs/ooad/`.
+[`materials`](https://github.com/radilov-spsu/materials), папка `ooad/labs/`.
 
 ## Что ожидается в сдаче
 
