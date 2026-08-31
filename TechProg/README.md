@@ -6,8 +6,8 @@
 |---|---|---|
 | [`lab-01`](lab-01/) | | |
 
-Условия работ — на сайте курса:
-<https://radilov-spsu.github.io/materials/TechProg/>
+Условия работ приходят issue'ом в этот репозиторий.
+Материалы курса: <https://radilov-spsu.github.io/materials/>
 
 ## Что ожидается в сдаче
 
