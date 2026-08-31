@@ -6,9 +6,8 @@
 |---|---|---|
 | [`lab-01`](lab-01/) | | |
 
-Условия работ — в репозитории
-[`materials`](https://github.com/radilov-spsu/materials), папка
-`parallel-programming/labs/`.
+Условия работ — на сайте курса:
+<https://radilov-spsu.github.io/materials/Parallel/>
 
 ## Что ожидается в сдаче
 
@@ -25,7 +24,7 @@
 ## Ветка и PR
 
 ```bash
-git switch -c parallel-programming/lab-01
+git switch -c Parallel/lab-01
 ```
 
 PR называйте `ТПП, работа 1: <тема>`.

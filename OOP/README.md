@@ -6,8 +6,8 @@
 |---|---|---|
 | [`lab-01`](lab-01/) | | |
 
-Условия работ — в репозитории
-[`materials`](https://github.com/radilov-spsu/materials), папка `ooad/labs/`.
+Условия работ — на сайте курса:
+<https://radilov-spsu.github.io/materials/OOP/>
 
 ## Что ожидается в сдаче
 
@@ -24,7 +24,7 @@
 ## Ветка и PR
 
 ```bash
-git switch -c ooad/lab-01
+git switch -c OOP/lab-01
 ```
 
 PR называйте `ООАП, работа 1: <тема>`.
