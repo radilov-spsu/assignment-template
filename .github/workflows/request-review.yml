@@ -1,0 +1,43 @@
+name: Назначить преподавателя ревьюером
+
+# Как только работа отправлена на проверку, преподаватель добавляется
+# ревьюером: PR попадает к нему в «Review requested» и приходит письмо.
+# Иначе о сдаче никто не узнает — на приватные репозитории преподаватель
+# не подписан, а CODEOWNERS на плане Free здесь не действует.
+
+on:
+  pull_request:
+    types: [opened, ready_for_review, reopened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  request-review:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - name: Запросить ревью
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TEACHER: Nemo-Illusionist
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          AUTHOR: ${{ github.event.pull_request.user.login }}
+        run: |
+          set -euo pipefail
+
+          # Себя ревьюером назначить нельзя — GitHub отвечает 422.
+          if [ "$AUTHOR" = "$TEACHER" ]; then
+            echo "PR открыт преподавателем, ревью не запрашиваю."
+            exit 0
+          fi
+
+          # Повторный запрос безвреден: если ревьюер уже назначен, GitHub
+          # просто возвращает текущее состояние.
+          if gh api -X POST "repos/$REPO/pulls/$PR/requested_reviewers" \
+               -f "reviewers[]=$TEACHER" >/dev/null; then
+            echo "Преподаватель @$TEACHER назначен ревьюером PR #$PR."
+          else
+            echo "::warning::Не удалось назначить ревьюера — проверьте, что @$TEACHER имеет доступ к репозиторию."
+          fi
