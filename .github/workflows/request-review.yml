@@ -1,9 +1,15 @@
-name: Назначить преподавателя ревьюером
+name: Назначить ревьюера и исполнителя
 
-# Как только работа отправлена на проверку, преподаватель добавляется
-# ревьюером: PR попадает к нему в «Review requested» и приходит письмо.
-# Иначе о сдаче никто не узнает — на приватные репозитории преподаватель
-# не подписан, а CODEOWNERS на плане Free здесь не действует.
+# Два шага при открытии pull request'а.
+#
+# Ревьюер. Преподаватель добавляется ревьюером: PR попадает к нему
+# в «Review requested» и приходит письмо. Иначе о сдаче никто не узнает —
+# на приватные репозитории преподаватель не подписан, а CODEOWNERS
+# на плане Free здесь не действует.
+#
+# Исполнитель. Автор PR назначается исполнителем: на доске «Сдачи работ»
+# в колонке Assignees видно, чья это работа, а фильтр `assignee:` начинает
+# работать. Сам PR при этом появляется у студента в «Assigned».
 
 on:
   pull_request:
@@ -11,8 +17,32 @@ on:
 
 permissions:
   pull-requests: write
+  issues: write
 
 jobs:
+  assign-author:
+    runs-on: ubuntu-latest
+    steps:
+      # Черновик тоже назначаем: работа уже числится за автором,
+      # даже если на проверку её ещё не отдали.
+      - name: Назначить автора исполнителем
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          AUTHOR: ${{ github.event.pull_request.user.login }}
+        run: |
+          set -euo pipefail
+
+          # Повторный запуск безвреден: назначение уже назначенного
+          # исполнителя GitHub принимает и возвращает текущее состояние.
+          if gh api -X POST "repos/$REPO/issues/$PR/assignees" \
+               -f "assignees[]=$AUTHOR" >/dev/null; then
+            echo "Автор @$AUTHOR назначен исполнителем PR #$PR."
+          else
+            echo "::warning::Не удалось назначить @$AUTHOR исполнителем — исполнителем можно сделать только того, у кого есть доступ к репозиторию."
+          fi
+
   request-review:
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
